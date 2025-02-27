@@ -63,39 +63,6 @@ namespace cpk.Controllers
 
             return View();
         }
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllData()
-        //{
-        //    var line1003Data = await _context.Line1003s
-        //        .Select(entry => new {
-        //            timestamp = entry.CpkLin3We3Timestamp,
-        //            value = entry.CpkLin3We3Value
-        //        })
-        //        .ToListAsync();
-
-        //    var line1010Data = await _context.Line1010s
-        //        .Select(entry => new {
-        //            timestamp = entry.CpkLin10We10Timestamp,
-        //            value = entry.CpkLin10We10Value
-        //        })
-        //        .ToListAsync();
-
-        //    var line1011Data = await _context.Line1011s
-        //        .Select(entry => new {
-        //            timestamp = entry.CpkLin11We11Timestamp,
-        //            value = entry.CpkLin11We11Value
-        //        })
-        //        .ToListAsync();
-
-        //    // Store data in ViewBag
-        //    ViewBag.Line1003Data = line1003Data;
-        //    ViewBag.Line1010Data = line1010Data;
-        //    ViewBag.Line1011Data = line1011Data;
-
-        //    return View();
-        //}
-
-
         public IActionResult Privacy()
         {
             return View();

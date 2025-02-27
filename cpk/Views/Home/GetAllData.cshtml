@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Sales Dashboard";
+    ViewData["Title"] = "Dashboard";
 }
 
 <style>
@@ -9,7 +9,14 @@
         margin: 0;
         padding: 20px;
     }
+    .row{
+        margin-right: calc(var(--bs-gutter-x)* -3.5);
+        margin-left: calc(var(--bs-gutter-x)* -3);
+    }
 
+    .col-md-4{
+        display: flex;
+    }
     h2 {
         color: #333;
         margin-top: 30px;
@@ -54,8 +61,9 @@
 
 <div class="container">
     <h2>Sales Dashboard</h2>
+
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-4">
             <div class="fields-container">
                 <div class="field-label">Pipe Weight:</div>
                 <div class="field-value" id="line1003Weight">0</div>
@@ -63,18 +71,16 @@
                 <div class="field-value" id="line1003Average">0</div>
                 <div class="field-label">CPK:</div>
                 <div class="field-value" id="line1003Cpk">0</div>
+                <div class="field-label">LTL:  0</div>
+                <div class="field-label">RTL:  0</div>
             </div>
-        </div>
-        <div class="col-md-10">
             <div class="chart-container">
                 <div class="chart-title">Line 1003 Data Over Time</div>
                 <canvas id="Line1003sChart" width="400" height="200"></canvas>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-4">
             <div class="fields-container">
                 <div class="field-label">Pipe Weight:</div>
                 <div class="field-value" id="line1010Weight">0</div>
@@ -82,18 +88,16 @@
                 <div class="field-value" id="line1010Average">0</div>
                 <div class="field-label">CPK:</div>
                 <div class="field-value" id="line1010Cpk">0</div>
+                <div class="field-label">LTL:  0</div>
+                <div class="field-label">RTL:  0</div>
             </div>
-        </div>
-        <div class="col-md-10">
             <div class="chart-container">
                 <div class="chart-title">Line 1010 Data Over Time</div>
                 <canvas id="Line1010sChart" width="400" height="200"></canvas>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-4">
             <div class="fields-container">
                 <div class="field-label">Pipe Weight:</div>
                 <div class="field-value" id="line1011Weight">0</div>
@@ -101,9 +105,9 @@
                 <div class="field-value" id="line1011Average">0</div>
                 <div class="field-label">CPK:</div>
                 <div class="field-value" id="line1011Cpk">0</div>
+                <div class="field-label">LTL:  0</div>
+                <div class="field-label">RTL:  0</div>
             </div>
-        </div>
-        <div class="col-md-10">
             <div class="chart-container">
                 <div class="chart-title">Line 1011 Data Over Time</div>
                 <canvas id="Line1011sChart" width="400" height="200"></canvas>
@@ -112,7 +116,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-4">
             <div class="fields-container">
                 <div class="field-label">Pipe Weight:</div>
                 <div class="field-value" id="line1013Weight">0</div>
@@ -120,18 +124,16 @@
                 <div class="field-value" id="line1013Average">0</div>
                 <div class="field-label">CPK:</div>
                 <div class="field-value" id="line1013Cpk">0</div>
+                <div class="field-label">LTL:  0</div>
+                <div class="field-label">RTL:  0</div>
             </div>
-        </div>
-        <div class="col-md-10">
             <div class="chart-container">
                 <div class="chart-title">Line 1013 Data Over Time</div>
                 <canvas id="Line1013sChart" width="400" height="200"></canvas>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-4">
             <div class="fields-container">
                 <div class="field-label">Pipe Weight:</div>
                 <div class="field-value" id="line1014Weight">0</div>
@@ -139,9 +141,9 @@
                 <div class="field-value" id="line1014Average">0</div>
                 <div class="field-label">CPK:</div>
                 <div class="field-value" id="line1014Cpk">0</div>
+                <div class="field-label">LTL:  0</div>
+                <div class="field-label">RTL:  0</div>
             </div>
-        </div>
-        <div class="col-md-10">
             <div class="chart-container">
                 <div class="chart-title">Line 1014 Data Over Time</div>
                 <canvas id="Line1014sChart" width="400" height="200"></canvas>
