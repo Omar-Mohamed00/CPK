@@ -1,0 +1,248 @@
+﻿@{
+    ViewData["Title"] = "Sales Dashboard";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2 {
+        color: #333;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .chart-container {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    canvas {
+        max-width: 100%;
+        height: auto !important;
+    }
+
+    .chart-title {
+        font-size: 1.5em;
+        text-align: center;
+        margin-bottom: 10px;
+        color: #555;
+    }
+
+    .field-label {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .field-value {
+        font-size: 1.2em;
+        color: #333;
+    }
+
+    .fields-container {
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container">
+    <h2>Sales Dashboard</h2>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="fields-container">
+                <div class="field-label">Pipe Weight:</div>
+                <div class="field-value" id="line1003Weight">0</div>
+                <div class="field-label">Average:</div>
+                <div class="field-value" id="line1003Average">0</div>
+                <div class="field-label">CPK:</div>
+                <div class="field-value" id="line1003Cpk">0</div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="chart-container">
+                <div class="chart-title">Line 1003 Data Over Time</div>
+                <canvas id="Line1003sChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="fields-container">
+                <div class="field-label">Pipe Weight:</div>
+                <div class="field-value" id="line1010Weight">0</div>
+                <div class="field-label">Average:</div>
+                <div class="field-value" id="line1010Average">0</div>
+                <div class="field-label">CPK:</div>
+                <div class="field-value" id="line1010Cpk">0</div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="chart-container">
+                <div class="chart-title">Line 1010 Data Over Time</div>
+                <canvas id="Line1010sChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="fields-container">
+                <div class="field-label">Pipe Weight:</div>
+                <div class="field-value" id="line1011Weight">0</div>
+                <div class="field-label">Average:</div>
+                <div class="field-value" id="line1011Average">0</div>
+                <div class="field-label">CPK:</div>
+                <div class="field-value" id="line1011Cpk">0</div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="chart-container">
+                <div class="chart-title">Line 1011 Data Over Time</div>
+                <canvas id="Line1011sChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="fields-container">
+                <div class="field-label">Pipe Weight:</div>
+                <div class="field-value" id="line1013Weight">0</div>
+                <div class="field-label">Average:</div>
+                <div class="field-value" id="line1013Average">0</div>
+                <div class="field-label">CPK:</div>
+                <div class="field-value" id="line1013Cpk">0</div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="chart-container">
+                <div class="chart-title">Line 1013 Data Over Time</div>
+                <canvas id="Line1013sChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="fields-container">
+                <div class="field-label">Pipe Weight:</div>
+                <div class="field-value" id="line1014Weight">0</div>
+                <div class="field-label">Average:</div>
+                <div class="field-value" id="line1014Average">0</div>
+                <div class="field-label">CPK:</div>
+                <div class="field-value" id="line1014Cpk">0</div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="chart-container">
+                <div class="chart-title">Line 1014 Data Over Time</div>
+                <canvas id="Line1014sChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script>
+        // Function to create a chart
+        function createChart(ctx, labels, values, label, color) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: label,
+                        data: values,
+                        borderColor: color,
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: { unit: 'minute' },
+                            title: {
+                                display: true,
+                                text: 'Time',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Value',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Prepare data for Line1003sChart
+        var line1003Data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Line1003Data));
+        var line1003Labels = line1003Data.map(entry => new Date(entry.timestamp));
+        var line1003Values = line1003Data.map(entry => entry.value);
+        var ctxLine1003 = document.getElementById('Line1003sChart').getContext('2d');
+        createChart(ctxLine1003, line1003Labels, line1003Values, 'Line 1003 Value Over Time', 'blue');
+
+        // Prepare data for Line1010sChart
+        var line1010Data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Line1010Data));
+        var line1010Labels = line1010Data.map(entry => new Date(entry.timestamp));
+        var line1010Values = line1010Data.map(entry => entry.value);
+        var ctxLine1010 = document.getElementById('Line1010sChart').getContext('2d');
+        createChart(ctxLine1010, line1010Labels, line1010Values, 'Line 1010 Value Over Time', 'green');
+
+        // Prepare data for Line1011sChart
+        var line1011Data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Line1011Data));
+        var line1011Labels = line1011Data.map(entry => new Date(entry.timestamp));
+        var line1011Values = line1011Data.map(entry => entry.value);
+        var ctxLine1011 = document.getElementById('Line1011sChart').getContext('2d');
+        createChart(ctxLine1011, line1011Labels, line1011Values, 'Line 1011 Value Over Time', 'red');
+
+        // Prepare data for Line1013sChart
+        var line1013Data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Line1013Data));
+        var line1013Labels = line1013Data.map(entry => new Date(entry.timestamp));
+        var line1013Values = line1013Data.map(entry => entry.value);
+        var ctxLine1013 = document.getElementById('Line1013sChart').getContext('2d');
+        createChart(ctxLine1013, line1013Labels, line1013Values, 'Line 1013 Value Over Time', 'purple');
+
+        // Prepare data for Line1014sChart
+        var line1014Data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Line1014Data));
+        var line1014Labels = line1014Data.map(entry => new Date(entry.timestamp));
+        var line1014Values = line1014Data.map(entry => entry.value);
+        var ctxLine1014 = document.getElementById('Line1014sChart').getContext('2d');
+        createChart(ctxLine1014, line1014Labels, line1014Values, 'Line 1014 Value Over Time', 'orange');
+    </script>
+}
