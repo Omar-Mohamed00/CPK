@@ -1,3 +1,7 @@
+using cpk.Controllers;
+using cpk.MiddlewareExtensions;
+using cpk.Repositories;
+using cpk.SubscribeTableDependencies;
 using Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +14,13 @@ var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<Cpk25Context>(options =>
     options.UseSqlServer(ConnectionString));
+builder.Services.AddSignalR();
+
+// DI
+builder.Services.AddSingleton<DataHub>();
+//builder.Services.AddSingleton<LineRepositorie>();
+
+builder.Services.AddSingleton<SubscribeLine1003TableDependency>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,9 +37,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.MapHub<DataHub>("/dataHub");
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=GetAllData}/{id?}");
-
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseSqlTableDependency<SubscribeLine1003TableDependency>(ConnectionString);
 app.Run();

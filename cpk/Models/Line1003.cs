@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Models;
 
-public partial class Line1003
+public class Line1003
 {
     public int Id { get; set; }
 
