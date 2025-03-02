@@ -6,7 +6,8 @@ namespace cpk.Controllers
     public class DataHub : Hub
     {
         LineRepositorie lineRepositorie;
-
+        private static Timer? _timer;
+        private static bool _isRunning = false;
         public DataHub(IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -42,5 +43,6 @@ namespace cpk.Controllers
             var line1014ForGraph = lineRepositorie.GetLine1014ForGraph();
             await Clients.All.SendAsync("ReceivedLine1014ForGraph", line1014ForGraph);
         }
+       
     }
 }

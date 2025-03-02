@@ -35,7 +35,7 @@ namespace cpk.Repositories
         private DataTable GetLine1003ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_lin3_we3_VALUE, cpk_lin3_we3_Timestamp FROM Line1003 ORDER BY cpk_lin3_we3_Timestamp DESC;\r\n";
+            var query = "SELECT TOP 30 cpk_lin3_we3_VALUE, cpk_lin3_we3_Timestamp FROM Line1003 ORDER BY cpk_lin3_we3_Timestamp ASC;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -86,7 +86,7 @@ namespace cpk.Repositories
         private DataTable GetLine1010ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_lin10_we10_VALUE, cpk_lin10_we10_Timestamp FROM Line1010 ORDER BY cpk_lin10_we10_Timestamp DESC;\r\n";
+            var query = "SELECT TOP 30 cpk_lin10_we10_VALUE, cpk_lin10_we10_Timestamp FROM Line1010 ORDER BY cpk_lin10_we10_Timestamp ASC;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -137,7 +137,7 @@ namespace cpk.Repositories
         private DataTable GetLine1011ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_lin11_we11_VALUE, cpk_lin11_we11_Timestamp FROM Line1011 ORDER BY cpk_lin11_we11_Timestamp DESC;\r\n";
+            var query = "SELECT TOP 30 cpk_lin11_we11_VALUE, cpk_lin11_we11_Timestamp FROM Line1011 ORDER BY cpk_lin11_we11_Timestamp ASC;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -188,7 +188,7 @@ namespace cpk.Repositories
         public DataTable GetLine10113ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_lin3_we3_VALUE, cpk_lin3_we3_TIMESTAMP FROM Line10113 ORDER BY cpk_lin3_we3_TIMESTAMP DESC;\r\n";
+            var query = "SELECT TOP 30 cpk_lin3_we3_VALUE, cpk_lin3_we3_TIMESTAMP FROM Line10113 ORDER BY cpk_lin3_we3_TIMESTAMP ASC;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -239,7 +239,7 @@ namespace cpk.Repositories
         public DataTable GetLine1013ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_line_13_wei13_VALUE, cpk_line_13_wei13_TIMESTAMP FROM Line1013 ORDER BY cpk_line_13_wei13_TIMESTAMP DESC;";
+            var query = "SELECT TOP 30 cpk_line_13_wei13_VALUE, cpk_line_13_wei13_TIMESTAMP FROM Line1013 ORDER BY cpk_line_13_wei13_TIMESTAMP ASC;";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -290,7 +290,7 @@ namespace cpk.Repositories
         public DataTable GetLine1014ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_line_14_we14_VALUE, cpk_line_14_we14_TIMESTAMP FROM Line1014 ORDER BY cpk_line_14_we14_TIMESTAMP DESC;";
+            var query = "SELECT TOP 30 cpk_line_14_we14_VALUE, cpk_line_14_we14_TIMESTAMP FROM Line1014 ORDER BY cpk_line_14_we14_TIMESTAMP ASC;";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
