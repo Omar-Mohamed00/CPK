@@ -4,36 +4,36 @@ using TableDependency.SqlClient;
 
 namespace cpk.SubscribeTableDependencies
 {
-    public class SubscribeLine1003TableDependency : ISubscribeTableDependencies
+    public class SubscribeLine10113TableDependency : ISubscribeTableDependencies
     {
-        SqlTableDependency<Line1003> tableDependency;
+        SqlTableDependency<Line10113> tableDependency;
         DataHub dashboardHub;
 
-        public SubscribeLine1003TableDependency(DataHub dashboardHub)
+        public SubscribeLine10113TableDependency(DataHub dashboardHub)
         {
             this.dashboardHub = dashboardHub;
         }
 
         public void SubscribeTableDependency(string connectionString)
         {
-            tableDependency = new SqlTableDependency<Line1003>(connectionString);
+            tableDependency = new SqlTableDependency<Line10113>(connectionString);
 
             tableDependency.OnChanged += TableDependency_OnChanged;
             tableDependency.OnError += TableDependency_OnError;
             tableDependency.Start();
         }
 
-        private void TableDependency_OnChanged(object sender, TableDependency.SqlClient.Base.EventArgs.RecordChangedEventArgs<Line1003> e)
+        private void TableDependency_OnChanged(object sender, TableDependency.SqlClient.Base.EventArgs.RecordChangedEventArgs<Line10113> e)
         {
             if (e.ChangeType != TableDependency.SqlClient.Base.Enums.ChangeType.None)
             {
-                dashboardHub.Sendline1003();
+                dashboardHub.Sendline10113();
             }
         }
 
         private void TableDependency_OnError(object sender, TableDependency.SqlClient.Base.EventArgs.ErrorEventArgs e)
         {
-            Console.WriteLine($"{nameof(Line1003)} SqlTableDependency error: {e.Error.Message}");
+            Console.WriteLine($"{nameof(Line10113)} SqlTableDependency error: {e.Error.Message}");
         }
     }
 }
