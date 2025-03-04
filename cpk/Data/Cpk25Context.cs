@@ -30,6 +30,13 @@ public partial class Cpk25Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Line1003>().ToTable(t => t.HasTrigger("tr_dbo_Line1003_b0792f02-af10-4efb-8d4d-cf1b736d8bff_Sender"));
+        modelBuilder.Entity<Line1010>().ToTable(t => t.HasTrigger("tr_dbo_Line1010_b0792f02-af10-4efb-8d4d-cf1b736d8bff_Sender"));
+        modelBuilder.Entity<Line1011>().ToTable(t => t.HasTrigger("tr_dbo_Line1011_b0792f02-af10-4efb-8d4d-cf1b736d8bff_Sender"));
+        modelBuilder.Entity<Line10113>().ToTable(t => t.HasTrigger("tr_dbo_Line10113_b0792f02-af10-4efb-8d4d-cf1b736d8bff_Sender"));
+        modelBuilder.Entity<Line1013>().ToTable(t => t.HasTrigger("tr_dbo_Line1013_b0792f02-af10-4efb-8d4d-cf1b736d8bff_Sender"));
+        modelBuilder.Entity<Line1014>().ToTable(t => t.HasTrigger("tr_dbo_Line1014_b0792f02-af10-4efb-8d4d-cf1b736d8bff_Sender"));
+
         modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
         modelBuilder.Entity<Line1003>(entity =>

@@ -33,7 +33,6 @@ namespace cpk.Controllers
                 .Take(30)
                 .Select(entry => entry.CpkLin3We3Value)
                 .AverageAsync();
-            await _hubContext.Clients.All.SendAsync("ReceiveLatestDataline1003", "line1003", line1003Avg);
 
             var line1010Data = await _context.Line1010s
                 .OrderByDescending(entry => entry.CpkLin10We10Timestamp)

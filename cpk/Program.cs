@@ -58,6 +58,7 @@ Console.WriteLine(" All Table Dependency Subscriptions Started Successfully!");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.UseSqlTableDependency<SubscribeLine1003TableDependency>(ConnectionString);
 app.UseSqlTableDependency<SubscribeLine1010TableDependency>(ConnectionString);
 app.UseSqlTableDependency<SubscribeLine10113TableDependency>(ConnectionString);

@@ -32,6 +32,46 @@ namespace cpk.Repositories
 
             return lines1003ForGraph;
         }
+        public (float? avgValue, float? lastValue) GetLine1003DetailsFromDb()
+        {
+            var query = @"
+        SELECT 
+            (SELECT AVG(cpk_lin3_we3_VALUE) FROM Line1003) AS AvgValue,
+            (SELECT TOP 1 cpk_lin3_we3_VALUE FROM Line1003 ORDER BY cpk_lin3_we3_TIMESTAMP DESC) AS LastValue;
+    ";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                float? avgValue = reader["AvgValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["AvgValue"]) : null;
+                                float? lastValue = reader["LastValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["LastValue"]) : null;
+
+                                return (avgValue, lastValue);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return (null, null);
+        }
+
         private DataTable GetLine1003ForGraphFromDb()
         {
 
@@ -114,6 +154,45 @@ namespace cpk.Repositories
                 }
             }
         }
+        public (float? avgValue, float? lastValue) GetLine1010DetailsFromDb()
+        {
+            var query = @"
+        SELECT 
+    (SELECT AVG(cpk_lin10_we10_VALUE) FROM Line1010) AS AvgValue,
+    (SELECT TOP 1 cpk_lin10_we10_VALUE FROM Line1010 ORDER BY cpk_lin10_we10_TIMESTAMP DESC) AS LastValue;
+    ";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                float? avgValue = reader["AvgValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["AvgValue"]) : null;
+                                float? lastValue = reader["LastValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["LastValue"]) : null;
+
+                                return (avgValue, lastValue);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return (null, null);
+        }
         // Line1011
         public List<Line1011> GetLine1011ForGraph()
         {
@@ -164,6 +243,45 @@ namespace cpk.Repositories
                     connection.Close();
                 }
             }
+        }
+        public (float? avgValue, float? lastValue) GetLine1011DetailsFromDb()
+        {
+            var query = @"
+        SELECT 
+    (SELECT AVG(cpk_lin11_we11_VALUE) FROM Line1011) AS AvgValue,
+    (SELECT TOP 1 cpk_lin11_we11_VALUE FROM Line1011 ORDER BY cpk_lin11_we11_TIMESTAMP DESC) AS LastValue;
+    ";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                float? avgValue = reader["AvgValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["AvgValue"]) : null;
+                                float? lastValue = reader["LastValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["LastValue"]) : null;
+
+                                return (avgValue, lastValue);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return (null, null);
         }
         // Line10113
         public List<Line10113> GetLine10113ForGraph()
@@ -216,6 +334,45 @@ namespace cpk.Repositories
                 }
             }
         }
+        public (float? avgValue, float? lastValue) GetLine10113DetailsFromDb()
+        {
+            var query = @"
+        SELECT 
+    (SELECT AVG(cpk_lin3_we3_VALUE) FROM Line10113) AS AvgValue,
+    (SELECT TOP 1 cpk_lin3_we3_VALUE FROM Line10113 ORDER BY cpk_lin3_we3_TIMESTAMP DESC) AS LastValue;
+    ";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                float? avgValue = reader["AvgValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["AvgValue"]) : null;
+                                float? lastValue = reader["LastValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["LastValue"]) : null;
+
+                                return (avgValue, lastValue);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return (null, null);
+        }
         // Line1013
         public List<Line1013> GetLine1013ForGraph()
         {
@@ -266,6 +423,45 @@ namespace cpk.Repositories
                     connection.Close();
                 }
             }
+        }
+        public (float? avgValue, float? lastValue) GetLine1013DetailsFromDb()
+        {
+            var query = @"
+      SELECT 
+    (SELECT AVG(cpk_line_13_wei13_VALUE) FROM Line1013) AS AvgValue,
+    (SELECT TOP 1 cpk_line_13_wei13_VALUE FROM Line1013 ORDER BY cpk_line_13_wei13_TIMESTAMP DESC) AS LastValue;
+    ";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                float? avgValue = reader["AvgValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["AvgValue"]) : null;
+                                float? lastValue = reader["LastValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["LastValue"]) : null;
+
+                                return (avgValue, lastValue);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return (null, null);
         }
         // Line1014
         public List<Line1014> GetLine1014ForGraph()
@@ -318,6 +514,44 @@ namespace cpk.Repositories
                 }
             }
         }
+        public (float? avgValue, float? lastValue) GetLine1014DetailsFromDb()
+        {
+            var query = @"
+     SELECT 
+    (SELECT AVG(cpk_line_14_we14_VALUE) FROM Line1014) AS AvgValue,
+    (SELECT TOP 1 cpk_line_14_we14_VALUE FROM Line1014 ORDER BY cpk_line_14_we14_TIMESTAMP DESC) AS LastValue;
+    ";
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                float? avgValue = reader["AvgValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["AvgValue"]) : null;
+                                float? lastValue = reader["LastValue"] != DBNull.Value ? (float?)Convert.ToDouble(reader["LastValue"]) : null;
+
+                                return (avgValue, lastValue);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return (null, null);
+        }
     }
 }

@@ -5,7 +5,83 @@ if (!window.myCharts) {
     window.myCharts = {};
     }
 
+connection.on("ReceivedLine1003", function (line1003) {
+    console.log("Received Data for Line1003:", line1003);
 
+    // Update the "Pipe Weight" field dynamically
+    document.getElementById("line1003Weight").textContent = line1003.cpkLin3We3Value;
+});
+connection.on("ReceivedLine1010", function (line1010) {
+    console.log("Received Data for Line1010:", line1010);
+
+    // Update the "Pipe Weight" field dynamically
+    document.getElementById("line1010Weight").textContent = line1010.cpkLin10We10Value;
+});
+connection.on("ReceivedLine1011", function (line1011) {
+    console.log("Received Data for Line1011:", line1011);
+
+    // Update the "Pipe Weight" field dynamically
+    document.getElementById("line1011Weight").textContent = line1011.cpkLin11We11Value;
+});
+connection.on("ReceivedLine10113", function (line10113) {
+    console.log("Received Data for Line10113:", line10113);
+
+    // Update the "Pipe Weight" field dynamically
+    document.getElementById("line10113Weight").textContent = line10113.cpkLin3We3Value;
+});
+connection.on("ReceivedLine1013", function (line1013) {
+    console.log("Received Data for Line1013:", line1013);
+
+    // Update the "Pipe Weight" field dynamically
+    document.getElementById("line1013Weight").textContent = line1013.cpkLine13Wei13Value;
+});
+connection.on("ReceivedLine1014", function (line1014) {
+    console.log("Received Data for Line1014:", line1014);
+
+    // Update the "Pipe Weight" field dynamically
+    document.getElementById("line1014Weight").textContent = line1014.cpkLine14We14Value;
+    console.log("Checking elements...");
+    console.log(document.getElementById("line1014Weight"));  // Should NOT be null
+});
+
+connection.on("ReceivedAvgValue", function (avgValue) {
+    console.log("Received Average Value:", avgValue);
+
+    // Update the "Average" field dynamically
+        document.getElementById("line1003Average").textContent = avgValue;
+});
+connection.on("ReceivedAvgValueLine1010", function (avgValue) {
+    console.log("Received Average Value:", avgValue);
+
+    // Update the "Average" field dynamically
+    document.getElementById("line1010Average").textContent = avgValue;
+});
+connection.on("ReceivedAvgValueLine1011", function (avgValue) {
+    console.log("Received Average Value:", avgValue);
+
+    // Update the "Average" field dynamically
+    document.getElementById("line1011Average").textContent = avgValue;
+});
+connection.on("ReceivedAvgValueLine1013", function (avgValue) {
+    console.log("Received Average Value:", avgValue);
+
+    // Update the "Average" field dynamically
+    document.getElementById("line1013Average").textContent = avgValue;
+});
+connection.on("ReceivedAvgValueLine1014", function (avgValue) {
+    console.log("Received Average Value:", avgValue);
+
+    // Update the "Average" field dynamically
+    document.getElementById("line1014Average").textContent = avgValue;
+    console.log(document.getElementById("line1014Average")); // Should NOT be null
+
+});
+connection.on("ReceivedAvgValueLine10113", function (avgValue) {
+    console.log("Received Average Value:", avgValue);
+
+    // Update the "Average" field dynamically
+    document.getElementById("line10113Average").textContent = avgValue;
+});
 $(function () {
     connection.start().then(function () {
         console.log(" SignalR Connected!");
@@ -14,7 +90,6 @@ $(function () {
         console.error(" SignalR Connection Error:", err.toString());
     });
     });
-
 function InvokeSales() {
     connection.invoke("Sendline1003")
         .then(() => console.log(" Successfully invoked Sendline1003"))
