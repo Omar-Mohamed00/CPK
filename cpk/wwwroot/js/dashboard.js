@@ -3,217 +3,221 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/dataHub").build();
 
 if (!window.myCharts) {
     window.myCharts = {};
-    }
+}
 
-connection.on("ReceivedLine1003", function (line1003) {
-    console.log("Received Data for Line1003:", line1003);
+// Event handlers for receiving real-time data
+const updateWeightField = (line, elementId, valueKey) => {
+    console.log(`Received Data for ${elementId}:`, line);
+    let element = document.getElementById(elementId);
+    if (element) element.textContent = line[valueKey] || "N/A";
+};
 
-    // Update the "Pipe Weight" field dynamically
-    document.getElementById("line1003Weight").textContent = line1003.cpkLin3We3Value;
-});
-connection.on("ReceivedLine1010", function (line1010) {
-    console.log("Received Data for Line1010:", line1010);
+connection.on("ReceivedLine1003", (data) => updateWeightField(data, "line1003Weight", "cpkLin3We3Value"));
+connection.on("ReceivedLine1010", (data) => updateWeightField(data, "line1010Weight", "cpkLin10We10Value"));
+connection.on("ReceivedLine1011", (data) => updateWeightField(data, "line1011Weight", "cpkLin11We11Value"));
+connection.on("ReceivedLine10113", (data) => updateWeightField(data, "line10113Weight", "cpkLin3We3Value"));
+connection.on("ReceivedLine1013", (data) => updateWeightField(data, "line1013Weight", "cpkLine13Wei13Value"));
+connection.on("ReceivedLine1014", (data) => updateWeightField(data, "line1014Weight", "cpkLine14We14Value"));
 
-    // Update the "Pipe Weight" field dynamically
-    document.getElementById("line1010Weight").textContent = line1010.cpkLin10We10Value;
-});
-connection.on("ReceivedLine1011", function (line1011) {
-    console.log("Received Data for Line1011:", line1011);
+// Event handlers for receiving average values
+const updateAverageField = (avgValue, elementId) => {
+    console.log(`Received Average Value for ${elementId}:`, avgValue);
+    let element = document.getElementById(elementId);
+    if (element) element.textContent = avgValue;
+};
 
-    // Update the "Pipe Weight" field dynamically
-    document.getElementById("line1011Weight").textContent = line1011.cpkLin11We11Value;
-});
-connection.on("ReceivedLine10113", function (line10113) {
-    console.log("Received Data for Line10113:", line10113);
+connection.on("ReceivedAvgValue", (avgValue) => updateAverageField(avgValue, "line1003Average"));
+connection.on("ReceivedAvgValueLine1010", (avgValue) => updateAverageField(avgValue, "line1010Average"));
+connection.on("ReceivedAvgValueLine1011", (avgValue) => updateAverageField(avgValue, "line1011Average"));
+connection.on("ReceivedAvgValueLine1013", (avgValue) => updateAverageField(avgValue, "line1013Average"));
+connection.on("ReceivedAvgValueLine1014", (avgValue) => updateAverageField(avgValue, "line1014Average"));
+connection.on("ReceivedAvgValueLine10113", (avgValue) => updateAverageField(avgValue, "line10113Average"));
 
-    // Update the "Pipe Weight" field dynamically
-    document.getElementById("line10113Weight").textContent = line10113.cpkLin3We3Value;
-});
-connection.on("ReceivedLine1013", function (line1013) {
-    console.log("Received Data for Line1013:", line1013);
-
-    // Update the "Pipe Weight" field dynamically
-    document.getElementById("line1013Weight").textContent = line1013.cpkLine13Wei13Value;
-});
-connection.on("ReceivedLine1014", function (line1014) {
-    console.log("Received Data for Line1014:", line1014);
-
-    // Update the "Pipe Weight" field dynamically
-    document.getElementById("line1014Weight").textContent = line1014.cpkLine14We14Value;
-    console.log("Checking elements...");
-    console.log(document.getElementById("line1014Weight"));  // Should NOT be null
-});
-
-connection.on("ReceivedAvgValue", function (avgValue) {
-    console.log("Received Average Value:", avgValue);
-
-    // Update the "Average" field dynamically
-        document.getElementById("line1003Average").textContent = avgValue;
-});
-connection.on("ReceivedAvgValueLine1010", function (avgValue) {
-    console.log("Received Average Value:", avgValue);
-
-    // Update the "Average" field dynamically
-    document.getElementById("line1010Average").textContent = avgValue;
-});
-connection.on("ReceivedAvgValueLine1011", function (avgValue) {
-    console.log("Received Average Value:", avgValue);
-
-    // Update the "Average" field dynamically
-    document.getElementById("line1011Average").textContent = avgValue;
-});
-connection.on("ReceivedAvgValueLine1013", function (avgValue) {
-    console.log("Received Average Value:", avgValue);
-
-    // Update the "Average" field dynamically
-    document.getElementById("line1013Average").textContent = avgValue;
-});
-connection.on("ReceivedAvgValueLine1014", function (avgValue) {
-    console.log("Received Average Value:", avgValue);
-
-    // Update the "Average" field dynamically
-    document.getElementById("line1014Average").textContent = avgValue;
-    console.log(document.getElementById("line1014Average")); // Should NOT be null
-
-});
-connection.on("ReceivedAvgValueLine10113", function (avgValue) {
-    console.log("Received Average Value:", avgValue);
-
-    // Update the "Average" field dynamically
-    document.getElementById("line10113Average").textContent = avgValue;
-});
+// Start SignalR connection
 $(function () {
-    connection.start().then(function () {
-        console.log(" SignalR Connected!");
+    connection.start().then(() => {
+        console.log("SignalR Connected!");
         InvokeSales();
-    }).catch(function (err) {
-        console.error(" SignalR Connection Error:", err.toString());
-    });
-    });
+    }).catch(err => console.error("SignalR Connection Error:", err.toString()));
+});
+
+// Invoke methods to request real-time data
 function InvokeSales() {
-    connection.invoke("Sendline1003")
-        .then(() => console.log(" Successfully invoked Sendline1003"))
-        .catch(err => console.error(" Error invoking Sendline1003:", err.toString()));
-connection.invoke("Sendline1010")
-            .then(() => console.log(" Successfully invoked Sendline1010"))
-            .catch(err => console.error(" Error invoking Sendline1010:", err.toString()));
-connection.invoke("Sendline1011")
-            .then(() => console.log(" Successfully invoked Sendline1011"))
-            .catch(err => console.error(" Error invoking Sendline1011:", err.toString()));
-connection.invoke("Sendline10113")
-            .then(() => console.log(" Successfully invoked Sendline10113"))
-            .catch(err => console.error(" Error invoking Sendline10113:", err.toString()));
+    ["Sendline1003", "Sendline1010", "Sendline1011", "Sendline10113", "Sendline1013", "Sendline1014"].forEach(line => {
+        connection.invoke(line)
+            .then(() => console.log(`Successfully invoked ${line}`))
+            .catch(err => console.error(`Error invoking ${line}:`, err.toString()));
+    });
+}
 
-connection.invoke("Sendline1013")
-            .then(() => console.log(" Successfully invoked Sendline1013"))
-            .catch(err => console.error(" Error invoking Sendline1013:", err.toString()));
+//// Bind received data to respective graphs
+//function BindDataToGraph(chartId, data, label, timestampKey, valueKey) {
+//    const canvas = document.getElementById(chartId);
+//    if (!canvas) {
+//        console.error(`Canvas element '${chartId}' not found!`);
+//        return;
+//    }
 
+//    if (!window.myCharts[chartId]) {
+//        const ctx = canvas.getContext('2d');
+//        window.myCharts[chartId] = new Chart(ctx, {
+//            type: 'line',
+//            data: { labels: [], datasets: createDatasets(label) },
+//            options: createChartOptions()
+//        });
+//    }
 
-connection.invoke("Sendline1014")
-            .then(() => console.log(" Successfully invoked Sendline1014"))
-            .catch(err => console.error(" Error invoking Sendline1014:", err.toString()));
+//    const myChart = window.myCharts[chartId];
+//    if (!Array.isArray(data) || data.length === 0) {
+//        console.warn(`No data received for ${chartId}`);
+//        return;
+//    }
+
+//    console.log(`Updating ${chartId} with new data...`);
+
+//    // Extract LTL and RTL values
+//    let ltl = parseFloat(localStorage.getItem("LTL")) || 0;
+//    let rtl = parseFloat(localStorage.getItem("RTL")) || 0;
+
+//    myChart.data.labels = data.map(item => new Date(item[timestampKey] || item.timestamp).toLocaleTimeString());
+//    myChart.data.datasets[0].data = data.map(item => item[valueKey] || item.value);
+//    myChart.data.datasets[1].data = new Array(myChart.data.labels.length).fill(ltl);
+//    myChart.data.datasets[2].data = new Array(myChart.data.labels.length).fill(rtl);
+
+//    myChart.update();
+//    console.log(`Chart '${chartId}' successfully updated.`);
+//}
+
+//// Helper functions for chart datasets and options
+//function createDatasets(label) {
+//    return [
+//        { label: label, data: [], backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 2, fill: false, tension: 0.1 },
+//        { label: "LTL", data: [], borderColor: "red", borderWidth: 2, borderDash: [5, 5], fill: false },
+//        { label: "RTL", data: [], borderColor: "green", borderWidth: 2, borderDash: [5, 5], fill: false }
+//    ];
+//}
+
+//function createChartOptions() {
+//    return {
+//        responsive: true,
+//        scales: {
+//            x: { display: true, title: { display: true, text: 'Timestamp' } },
+//            y: { beginAtZero: true, title: { display: true, text: 'Values' } }
+//        }
+//    };
+//}
+
+// Bind individual graph functions
+function BindLine1003ToGraph(data) { BindDataToGraph("canvasLine1003", data, "Values Over Time (Line1003)", "cpkLin3We3Timestamp", "cpkLin3We3Value"); }
+function BindLine1010ToGraph(data) { BindDataToGraph("canvasLine1010", data, "Values Over Time (Line1010)", "cpkLin10We10Timestamp", "cpkLin10We10Value"); }
+function BindLine1011ToGraph(data) { BindDataToGraph("canvasLine1011", data, "Values Over Time (Line1011)", "cpkLin11We11Timestamp", "cpkLin11We11Value"); }
+function BindLine10113ToGraph(data) { BindDataToGraph("canvasLine10113", data, "Values Over Time (Line10113)", "cpkLin3We3Timestamp", "cpkLin3We3Value"); }
+function BindLine1013ToGraph(data) { BindDataToGraph("canvasLine1013", data, "Values Over Time (Line1013)", "cpkLine13Wei13Timestamp", "cpkLine13Wei13Value"); }
+function BindLine1014ToGraph(data) { BindDataToGraph("canvasLine1014", data, "Values Over Time (Line1014)", "cpkLine14We14Timestamp", "cpkLine14We14Value"); }
+
+// SignalR real-time updates for graphs
+connection.on("ReceivedLine1003ForGraph", BindLine1003ToGraph);
+connection.on("ReceivedLine1010ForGraph", BindLine1010ToGraph);
+connection.on("ReceivedLine1011ForGraph", BindLine1011ToGraph);
+connection.on("ReceivedLine10113ForGraph", BindLine10113ToGraph);
+connection.on("ReceivedLine1013ForGraph", BindLine1013ToGraph);
+connection.on("ReceivedLine1014ForGraph", BindLine1014ToGraph);
+
+//// Save and update LTL/RTL limits
+//function saveLimits() {
+//    let ltl = parseFloat(document.getElementById("ltlInput").value) || 0;
+//    let rtl = parseFloat(document.getElementById("rtlInput").value) || 0;
+
+//    localStorage.setItem("LTL", ltl);
+//    localStorage.setItem("RTL", rtl);
+
+//    // Update all graphs with new LTL/RTL limits
+//    Object.keys(window.myCharts).forEach(chartId => BindDataToGraph(chartId, [], "Updated Values", "", ""));
+//    // Refresh the page to reflect changes
+//    location.reload();
+//}
+
+//// Load LTL/RTL values on page load
+//window.onload = function () {
+//    document.getElementById("ltlInput").value = localStorage.getItem("LTL") || 0;
+//    document.getElementById("rtlInput").value = localStorage.getItem("RTL") || 0;
+//};
+// Bind received data to respective graphs
+function BindDataToGraph(chartId, data, label, timestampKey, valueKey) {
+    const canvas = document.getElementById(chartId);
+    if (!canvas) {
+        console.error(`Canvas element '${chartId}' not found!`);
+        return;
     }
-//  Listen for real-time updates
-connection.on("ReceivedLine1003ForGraph", function (Line1003ForGraph) {
-    console.log(" Received Data for Line1003:", Line1003ForGraph);
-BindLine1003ToGraph(Line1003ForGraph);
-    });
-connection.on("ReceivedLine1010ForGraph", function (Line1010ForGraph) {
-    console.log(" Received Data for Line1010:", Line1010ForGraph);
-BindLine1010ToGraph(Line1010ForGraph);
-    });
-connection.on("ReceivedLine1011ForGraph", function (Line1011ForGraph) {
-    console.log(" Received Data for Line1011:", Line1011ForGraph);
-BindLine1011ToGraph(Line1011ForGraph);
-    });
-connection.on("ReceivedLine10113ForGraph", function (Line10113ForGraph) {
-    console.log(" Received Data for Line10113:", Line10113ForGraph);
-BindLine10113ToGraph(Line10113ForGraph);
-    });
-connection.on("ReceivedLine1013ForGraph", function (Line1013ForGraph) {
-    console.log(" Received Data for Line1013:", Line1013ForGraph);
-BindLine1013ToGraph(Line1013ForGraph);
-    });
-connection.on("ReceivedLine1014ForGraph", function (Line1014ForGraph) {
-    console.log(" Received Data for Line1014:", Line1014ForGraph);
-BindLine1014ToGraph(Line1014ForGraph);
-    });
 
-function BindDataToGraph(chartId, LineForGraph, label, timestampKey, valueKey) {
-        const canvasElement = document.getElementById(chartId);
-if (!canvasElement) {
-    console.error(` Canvas element '${chartId}' not found!`);
-return;
-        }
-
-if (!window.myCharts[chartId]) {
-            const context = canvasElement.getContext('2d');
-window.myCharts[chartId] = new Chart(context, {
-    type: 'line',
-data: {
-    labels: [],
-datasets: [{
-    label: label,
-data: [],
-backgroundColor: 'rgba(54, 162, 235, 0.2)',
-borderColor: 'rgba(54, 162, 235, 1)',
-borderWidth: 2,
-fill: false,
-tension: 0.1
-                    }]
-                },
-options: {
-    responsive: true,
-scales: {
-    x: {display: true, title: {display: true, text: 'Timestamp' } },
-y: {beginAtZero: true, title: {display: true, text: 'Values' } }
-                    }
-                }
-            });
-        }
-
-const myChart = window.myCharts[chartId];
-
-if (!Array.isArray(LineForGraph) || LineForGraph.length === 0) {
-    console.warn(` No data received for ${chartId}`);
-return;
-        }
-
-console.log(` Updating ${chartId} with new data...`);
-
-//  Clear only old data and keep chart dynamic
-myChart.data.labels = [];
-myChart.data.datasets[0].data = [];
-
-        LineForGraph.forEach(item => {
-            const timestamp = item[timestampKey] || item.timestamp;
-const value = item[valueKey] || item.value;
-const formattedTime = new Date(timestamp).toLocaleTimeString();
-myChart.data.labels.push(formattedTime);
-myChart.data.datasets[0].data.push(value);
+    if (!window.myCharts[chartId]) {
+        const ctx = canvas.getContext('2d');
+        window.myCharts[chartId] = new Chart(ctx, {
+            type: 'line',
+            data: { labels: [], datasets: createDatasets(label) },
+            options: createChartOptions()
         });
-myChart.update();
-console.log(` Chart '${chartId}' successfully updated.`);
     }
 
-function BindLine1003ToGraph(Line1003ForGraph) {
-    BindDataToGraph("canvasLine1003", Line1003ForGraph, "Values Over Time (Line1003)", "cpkLin3We3Timestamp", "cpkLin3We3Value");
+    const myChart = window.myCharts[chartId];
+    if (!Array.isArray(data) || data.length === 0) {
+        console.warn(`No data received for ${chartId}`);
+        return;
     }
-function BindLine1010ToGraph(Line1010ForGraph) {
-    BindDataToGraph("canvasLine1010", Line1010ForGraph, "Values Over Time (Line1010)", "cpkLin10We10Timestamp", "cpkLin10We10Value");
-    }
-function BindLine1011ToGraph(Line1011ForGraph) {
-    BindDataToGraph("canvasLine1011", Line1011ForGraph, "Values Over Time (Line1011)", "cpkLin11We11Timestamp", "cpkLin11We11Value");
-    }
-function BindLine10113ToGraph(Line10113ForGraph) {
-    BindDataToGraph("canvasLine10113", Line10113ForGraph, "Values Over Time (Line10113)", "cpkLin3We3Timestamp", "cpkLin3We3Value");
-    }
-function BindLine1013ToGraph(Line1013ForGraph) {
-    BindDataToGraph("canvasLine1013", Line1013ForGraph, "Values Over Time (Line1013)", "cpkLine13Wei13Timestamp", "cpkLine13Wei13Value");
-    }
-function BindLine1014ToGraph(Line1014ForGraph) {
-    BindDataToGraph("canvasLine1014", Line1014ForGraph, "Values Over Time (Line1014)", "cpkLine14We14Timestamp", "cpkLine14We14Value");
-    }
-console.log(" jQuery Version:", $.fn.jquery);
-console.log(" SignalR Loaded:", typeof signalR !== "undefined");
 
+    console.log(`Updating ${chartId} with new data...`);
+
+    // Extract LTL and RTL values specific to each chart
+    let ltl = parseFloat(localStorage.getItem(`LTL_${chartId}`)) || 0;
+    let rtl = parseFloat(localStorage.getItem(`RTL_${chartId}`)) || 0;
+
+    myChart.data.labels = data.map(item => new Date(item[timestampKey] || item.timestamp).toLocaleTimeString());
+    myChart.data.datasets[0].data = data.map(item => item[valueKey] || item.value);
+    myChart.data.datasets[1].data = new Array(myChart.data.labels.length).fill(ltl);
+    myChart.data.datasets[2].data = new Array(myChart.data.labels.length).fill(rtl);
+
+    myChart.update();
+    console.log(`Chart '${chartId}' successfully updated.`);
+}
+
+// Helper functions for chart datasets and options
+function createDatasets(label) {
+    return [
+        { label: label, data: [], backgroundColor: 'rgba(54, 162, 235, 0.2)', pointRadius: 1.7, borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 1, fill: true, tension: 0.1 },
+        { label: "LTL", data: [], borderColor: "red", borderWidth: 1, pointRadius: 1.7, borderDash: [1, 1], fill: false },
+        { label: "RTL", data: [], borderColor: "green", borderWidth: 1, pointRadius: 1.7, borderDash: [1, 1], fill: false }
+    ];
+}
+
+function createChartOptions() {
+    return {
+        responsive: true,
+        scales: {
+            x: { display: true, title: { display: true, text: 'Timestamp' } },
+            y: { beginAtZero: true, title: { display: true, text: 'Values' } }
+        }
+    };
+}
+
+// Save and update LTL/RTL limits per chart
+function saveLimits(chartId) {
+    let ltl = parseFloat(document.getElementById(`ltlInput_${chartId}`).value) || 0;
+    let rtl = parseFloat(document.getElementById(`rtlInput_${chartId}`).value) || 0;
+
+    localStorage.setItem(`LTL_${chartId}`, ltl);
+    localStorage.setItem(`RTL_${chartId}`, rtl);
+
+    BindDataToGraph(chartId, [], "Updated Values", "", "");
+    location.reload();
+}
+
+// Load LTL/RTL values on page load for each chart
+window.onload = function () {
+    ["canvasLine1003", "canvasLine1010", "canvasLine1011", "canvasLine1013", "canvasLine1014", "canvasLine10113"].forEach(chartId => {
+        let ltlInput = document.getElementById(`ltlInput_${chartId}`);
+        let rtlInput = document.getElementById(`rtlInput_${chartId}`);
+
+        if (ltlInput) ltlInput.value = localStorage.getItem(`LTL_${chartId}`) || 0;
+        if (rtlInput) rtlInput.value = localStorage.getItem(`RTL_${chartId}`) || 0;
+    });
+};
