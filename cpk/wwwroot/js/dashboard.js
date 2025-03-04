@@ -50,70 +50,13 @@ function InvokeSales() {
     });
 }
 
-//// Bind received data to respective graphs
-//function BindDataToGraph(chartId, data, label, timestampKey, valueKey) {
-//    const canvas = document.getElementById(chartId);
-//    if (!canvas) {
-//        console.error(`Canvas element '${chartId}' not found!`);
-//        return;
-//    }
-
-//    if (!window.myCharts[chartId]) {
-//        const ctx = canvas.getContext('2d');
-//        window.myCharts[chartId] = new Chart(ctx, {
-//            type: 'line',
-//            data: { labels: [], datasets: createDatasets(label) },
-//            options: createChartOptions()
-//        });
-//    }
-
-//    const myChart = window.myCharts[chartId];
-//    if (!Array.isArray(data) || data.length === 0) {
-//        console.warn(`No data received for ${chartId}`);
-//        return;
-//    }
-
-//    console.log(`Updating ${chartId} with new data...`);
-
-//    // Extract LTL and RTL values
-//    let ltl = parseFloat(localStorage.getItem("LTL")) || 0;
-//    let rtl = parseFloat(localStorage.getItem("RTL")) || 0;
-
-//    myChart.data.labels = data.map(item => new Date(item[timestampKey] || item.timestamp).toLocaleTimeString());
-//    myChart.data.datasets[0].data = data.map(item => item[valueKey] || item.value);
-//    myChart.data.datasets[1].data = new Array(myChart.data.labels.length).fill(ltl);
-//    myChart.data.datasets[2].data = new Array(myChart.data.labels.length).fill(rtl);
-
-//    myChart.update();
-//    console.log(`Chart '${chartId}' successfully updated.`);
-//}
-
-//// Helper functions for chart datasets and options
-//function createDatasets(label) {
-//    return [
-//        { label: label, data: [], backgroundColor: 'rgba(54, 162, 235, 0.2)', borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 2, fill: false, tension: 0.1 },
-//        { label: "LTL", data: [], borderColor: "red", borderWidth: 2, borderDash: [5, 5], fill: false },
-//        { label: "RTL", data: [], borderColor: "green", borderWidth: 2, borderDash: [5, 5], fill: false }
-//    ];
-//}
-
-//function createChartOptions() {
-//    return {
-//        responsive: true,
-//        scales: {
-//            x: { display: true, title: { display: true, text: 'Timestamp' } },
-//            y: { beginAtZero: true, title: { display: true, text: 'Values' } }
-//        }
-//    };
-//}
-
 // Bind individual graph functions
-function BindLine1003ToGraph(data) { BindDataToGraph("canvasLine1003", data, "Values Over Time (Line1003)", "cpkLin3We3Timestamp", "cpkLin3We3Value"); }
-function BindLine1010ToGraph(data) { BindDataToGraph("canvasLine1010", data, "Values Over Time (Line1010)", "cpkLin10We10Timestamp", "cpkLin10We10Value"); }
-function BindLine1011ToGraph(data) { BindDataToGraph("canvasLine1011", data, "Values Over Time (Line1011)", "cpkLin11We11Timestamp", "cpkLin11We11Value"); }
-function BindLine10113ToGraph(data) { BindDataToGraph("canvasLine10113", data, "Values Over Time (Line10113)", "cpkLin3We3Timestamp", "cpkLin3We3Value"); }
-function BindLine1013ToGraph(data) { BindDataToGraph("canvasLine1013", data, "Values Over Time (Line1013)", "cpkLine13Wei13Timestamp", "cpkLine13Wei13Value"); }
-function BindLine1014ToGraph(data) { BindDataToGraph("canvasLine1014", data, "Values Over Time (Line1014)", "cpkLine14We14Timestamp", "cpkLine14We14Value"); }
+function BindLine1003ToGraph(data) { BindDataToGraph("canvasLine1003", data, "Values Over Time", "cpkLin3We3Timestamp", "cpkLin3We3Value"); }
+function BindLine1010ToGraph(data) { BindDataToGraph("canvasLine1010", data, "Values Over Time", "cpkLin10We10Timestamp", "cpkLin10We10Value"); }
+function BindLine1011ToGraph(data) { BindDataToGraph("canvasLine1011", data, "Values Over Time", "cpkLin11We11Timestamp", "cpkLin11We11Value"); }
+function BindLine10113ToGraph(data) { BindDataToGraph("canvasLine10113", data, "Values Over Time", "cpkLin3We3Timestamp", "cpkLin3We3Value"); }
+function BindLine1013ToGraph(data) { BindDataToGraph("canvasLine1013", data, "Values Over Time", "cpkLine13Wei13Timestamp", "cpkLine13Wei13Value"); }
+function BindLine1014ToGraph(data) { BindDataToGraph("canvasLine1014", data, "Values Over Time", "cpkLine14We14Timestamp", "cpkLine14We14Value"); }
 
 // SignalR real-time updates for graphs
 connection.on("ReceivedLine1003ForGraph", BindLine1003ToGraph);
@@ -123,25 +66,6 @@ connection.on("ReceivedLine10113ForGraph", BindLine10113ToGraph);
 connection.on("ReceivedLine1013ForGraph", BindLine1013ToGraph);
 connection.on("ReceivedLine1014ForGraph", BindLine1014ToGraph);
 
-//// Save and update LTL/RTL limits
-//function saveLimits() {
-//    let ltl = parseFloat(document.getElementById("ltlInput").value) || 0;
-//    let rtl = parseFloat(document.getElementById("rtlInput").value) || 0;
-
-//    localStorage.setItem("LTL", ltl);
-//    localStorage.setItem("RTL", rtl);
-
-//    // Update all graphs with new LTL/RTL limits
-//    Object.keys(window.myCharts).forEach(chartId => BindDataToGraph(chartId, [], "Updated Values", "", ""));
-//    // Refresh the page to reflect changes
-//    location.reload();
-//}
-
-//// Load LTL/RTL values on page load
-//window.onload = function () {
-//    document.getElementById("ltlInput").value = localStorage.getItem("LTL") || 0;
-//    document.getElementById("rtlInput").value = localStorage.getItem("RTL") || 0;
-//};
 // Bind received data to respective graphs
 function BindDataToGraph(chartId, data, label, timestampKey, valueKey) {
     const canvas = document.getElementById(chartId);
