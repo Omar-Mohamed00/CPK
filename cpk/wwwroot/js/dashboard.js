@@ -107,9 +107,9 @@ function BindDataToGraph(chartId, data, label, timestampKey, valueKey) {
 // Helper functions for chart datasets and options
 function createDatasets(label) {
     return [
-        { label: label, data: [], backgroundColor: 'rgba(54, 162, 235, 0.2)', pointRadius: 1.7, borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 1, fill: true, tension: 0.1 },
-        { label: "LTL", data: [], borderColor: "red", borderWidth: 1, pointRadius: 1.7, borderDash: [1, 1], fill: false },
-        { label: "UTL", data: [], borderColor: "green", borderWidth: 1, pointRadius: 1.7, borderDash: [1, 1], fill: false }
+        { label: label, data: [], backgroundColor: 'rgba(54, 162, 235, 0.2)', pointRadius: 0, borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 1, fill: false, tension: 0.1 },
+        { label: "LTL", data: [], borderColor: "red", borderWidth: 1, pointRadius: 0, borderDash: [1, 1], fill: false },
+        { label: "UTL", data: [], borderColor: "green", borderWidth: 1, pointRadius: 0, borderDash: [1, 1], fill: false }
     ];
 }
 
