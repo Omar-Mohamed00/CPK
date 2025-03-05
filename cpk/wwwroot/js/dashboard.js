@@ -109,7 +109,7 @@ function createDatasets(label) {
     return [
         { label: label, data: [], backgroundColor: 'rgba(54, 162, 235, 0.2)', pointRadius: 1.7, borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 1, fill: true, tension: 0.1 },
         { label: "LTL", data: [], borderColor: "red", borderWidth: 1, pointRadius: 1.7, borderDash: [1, 1], fill: false },
-        { label: "RTL", data: [], borderColor: "green", borderWidth: 1, pointRadius: 1.7, borderDash: [1, 1], fill: false }
+        { label: "UTL", data: [], borderColor: "green", borderWidth: 1, pointRadius: 1.7, borderDash: [1, 1], fill: false }
     ];
 }
 
@@ -135,13 +135,66 @@ function saveLimits(chartId) {
     location.reload();
 }
 
+function calculateCpk(chartId) {
+    let ltl = parseFloat(document.getElementById(`ltlInput_${chartId}`).value) || 0;
+    let utl = parseFloat(document.getElementById(`rtlInput_${chartId}`).value) || 0;
+
+    // Extract the line number from the chartId (e.g., "canvasLine1003" -> "1003")
+    let lineNumber = chartId.replace("canvasLine", "");
+    let avgElement = document.getElementById(`line${lineNumber}Average`);
+
+    if (!avgElement) {
+        console.error(`Average element not found for ${chartId}`);
+        return;
+    }
+
+    let avg = parseFloat(avgElement.textContent) || 0;
+
+    let x = (utl - ltl) / 6;
+    let cpk = (utl - avg) / (6 * x);
+
+    cpk = Math.max(0.5, Math.min(3, cpk)); // Ensure Cpk is within range [0.5, 3]
+
+    let cpkElement = document.getElementById(`line${lineNumber}Cpk`);
+    if (cpkElement) {
+        cpkElement.textContent = cpk.toFixed(2);
+    } else {
+        console.error(`Cpk element not found for ${chartId}`);
+    }
+}
+
+// Define all chart IDs
+const allChartIds = ["canvasLine1003", "canvasLine1010", "canvasLine1011", "canvasLine1013", "canvasLine1014", "canvasLine10113"];
+
+// Add event listeners for all charts
+allChartIds.forEach(chartId => {
+    const ltlInput = document.getElementById(`ltlInput_${chartId}`);
+    const rtlInput = document.getElementById(`rtlInput_${chartId}`);
+
+    if (ltlInput) {
+        ltlInput.addEventListener("input", () => calculateCpk(chartId));
+    }
+
+    if (rtlInput) {
+        rtlInput.addEventListener("input", () => calculateCpk(chartId));
+    }
+});
+
+connection.on("ReceivedAvgValue", (lineNumber, avgValue) => {
+    updateAverageField(avgValue, `line${lineNumber}Average`);
+    calculateCpk(`canvasLine${lineNumber}`);
+});
+
 // Load LTL/RTL values on page load for each chart
 window.onload = function () {
-    ["canvasLine1003", "canvasLine1010", "canvasLine1011", "canvasLine1013", "canvasLine1014", "canvasLine10113"].forEach(chartId => {
+    allChartIds.forEach(chartId => {
         let ltlInput = document.getElementById(`ltlInput_${chartId}`);
         let rtlInput = document.getElementById(`rtlInput_${chartId}`);
 
         if (ltlInput) ltlInput.value = localStorage.getItem(`LTL_${chartId}`) || 0;
         if (rtlInput) rtlInput.value = localStorage.getItem(`RTL_${chartId}`) || 0;
+
+        // Calculate initial CPK values
+        calculateCpk(chartId);
     });
-};
+}; 
