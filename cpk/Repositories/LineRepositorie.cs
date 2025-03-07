@@ -35,9 +35,15 @@ namespace cpk.Repositories
         public (float? avgValue, float? lastValue) GetLine1003DetailsFromDb()
         {
             var query = @"
-        SELECT 
-            (SELECT AVG(cpk_lin3_we3_VALUE) FROM Line1003) AS AvgValue,
-            (SELECT TOP 1 cpk_lin3_we3_VALUE FROM Line1003 ORDER BY cpk_lin3_we3_TIMESTAMP DESC) AS LastValue;
+       SELECT 
+    (SELECT AVG(cpk_lin3_we3_VALUE) 
+     FROM (SELECT TOP 20 cpk_lin3_we3_VALUE 
+           FROM Line1003 
+           ORDER BY cpk_lin3_we3_TIMESTAMP DESC) AS Last20Rows) AS AvgValue,
+    (SELECT TOP 1 cpk_lin3_we3_VALUE 
+     FROM Line1003 
+     ORDER BY cpk_lin3_we3_TIMESTAMP DESC) AS LastValue;
+
     ";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -71,11 +77,10 @@ namespace cpk.Repositories
 
             return (null, null);
         }
-
         private DataTable GetLine1003ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_lin3_we3_VALUE, cpk_lin3_we3_Timestamp FROM Line1003 ORDER BY cpk_lin3_we3_Timestamp ASC;\r\n";
+            var query = "SELECT TOP 20 cpk_lin3_we3_VALUE, cpk_lin3_we3_Timestamp FROM Line1003 ORDER BY cpk_lin3_we3_Timestamp ASC;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -126,7 +131,7 @@ namespace cpk.Repositories
         private DataTable GetLine1010ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_lin10_we10_VALUE, cpk_lin10_we10_Timestamp FROM Line1010 ORDER BY cpk_lin10_we10_Timestamp ASC;\r\n";
+            var query = "SELECT TOP 20 cpk_lin10_we10_VALUE, cpk_lin10_we10_Timestamp FROM Line1010 ORDER BY cpk_lin10_we10_Timestamp ASC;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -157,9 +162,15 @@ namespace cpk.Repositories
         public (float? avgValue, float? lastValue) GetLine1010DetailsFromDb()
         {
             var query = @"
-        SELECT 
-    (SELECT AVG(cpk_lin10_we10_VALUE) FROM Line1010) AS AvgValue,
-    (SELECT TOP 1 cpk_lin10_we10_VALUE FROM Line1010 ORDER BY cpk_lin10_we10_TIMESTAMP DESC) AS LastValue;
+     SELECT 
+    (SELECT AVG(cpk_lin10_we10_VALUE) 
+     FROM (SELECT TOP 20 cpk_lin10_we10_VALUE 
+           FROM Line1010 
+           ORDER BY cpk_lin10_we10_TIMESTAMP DESC) AS Last20Rows) AS AvgValue,
+    (SELECT TOP 1 cpk_lin10_we10_VALUE 
+     FROM Line1010 
+     ORDER BY cpk_lin10_we10_TIMESTAMP DESC) AS LastValue;
+
     ";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -216,7 +227,7 @@ namespace cpk.Repositories
         private DataTable GetLine1011ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_lin11_we11_VALUE, cpk_lin11_we11_Timestamp FROM Line1011 ORDER BY cpk_lin11_we11_Timestamp ASC;\r\n";
+            var query = "SELECT TOP 20 cpk_lin11_we11_VALUE, cpk_lin11_we11_Timestamp FROM Line1011 ORDER BY cpk_lin11_we11_Timestamp ASC;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -247,9 +258,15 @@ namespace cpk.Repositories
         public (float? avgValue, float? lastValue) GetLine1011DetailsFromDb()
         {
             var query = @"
-        SELECT 
-    (SELECT AVG(cpk_lin11_we11_VALUE) FROM Line1011) AS AvgValue,
-    (SELECT TOP 1 cpk_lin11_we11_VALUE FROM Line1011 ORDER BY cpk_lin11_we11_TIMESTAMP DESC) AS LastValue;
+       SELECT 
+    (SELECT AVG(cpk_lin11_we11_VALUE) 
+     FROM (SELECT TOP 20 cpk_lin11_we11_VALUE 
+           FROM Line1011 
+           ORDER BY cpk_lin11_we11_TIMESTAMP DESC) AS Last20Rows) AS AvgValue,
+    (SELECT TOP 1 cpk_lin11_we11_VALUE 
+     FROM Line1011 
+     ORDER BY cpk_lin11_we11_TIMESTAMP DESC) AS LastValue;
+
     ";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -306,7 +323,7 @@ namespace cpk.Repositories
         public DataTable GetLine10113ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_lin3_we3_VALUE, cpk_lin3_we3_TIMESTAMP FROM Line10113 ORDER BY cpk_lin3_we3_TIMESTAMP ASC;\r\n";
+            var query = "SELECT TOP 20 cpk_lin3_we3_VALUE, cpk_lin3_we3_TIMESTAMP FROM Line10113 ORDER BY cpk_lin3_we3_TIMESTAMP ASC;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -338,8 +355,14 @@ namespace cpk.Repositories
         {
             var query = @"
         SELECT 
-    (SELECT AVG(cpk_lin3_we3_VALUE) FROM Line10113) AS AvgValue,
-    (SELECT TOP 1 cpk_lin3_we3_VALUE FROM Line10113 ORDER BY cpk_lin3_we3_TIMESTAMP DESC) AS LastValue;
+    (SELECT AVG(cpk_lin3_we3_VALUE) 
+     FROM (SELECT TOP 20 cpk_lin3_we3_VALUE 
+           FROM Line10113 
+           ORDER BY cpk_lin3_we3_TIMESTAMP DESC) AS Last20Rows) AS AvgValue,
+    (SELECT TOP 1 cpk_lin3_we3_VALUE 
+     FROM Line10113 
+     ORDER BY cpk_lin3_we3_TIMESTAMP DESC) AS LastValue;
+
     ";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -396,7 +419,7 @@ namespace cpk.Repositories
         public DataTable GetLine1013ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_line_13_wei13_VALUE, cpk_line_13_wei13_TIMESTAMP FROM Line1013 ORDER BY cpk_line_13_wei13_TIMESTAMP ASC;";
+            var query = "SELECT TOP 20 cpk_line_13_wei13_VALUE, cpk_line_13_wei13_TIMESTAMP FROM Line1013 ORDER BY cpk_line_13_wei13_TIMESTAMP ASC;";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -427,9 +450,15 @@ namespace cpk.Repositories
         public (float? avgValue, float? lastValue) GetLine1013DetailsFromDb()
         {
             var query = @"
-      SELECT 
-    (SELECT AVG(cpk_line_13_wei13_VALUE) FROM Line1013) AS AvgValue,
-    (SELECT TOP 1 cpk_line_13_wei13_VALUE FROM Line1013 ORDER BY cpk_line_13_wei13_TIMESTAMP DESC) AS LastValue;
+    SELECT 
+    (SELECT AVG(cpk_line_13_wei13_VALUE) 
+     FROM (SELECT TOP 20 cpk_line_13_wei13_VALUE 
+           FROM Line1013 
+           ORDER BY cpk_line_13_wei13_TIMESTAMP DESC) AS Last20Rows) AS AvgValue,
+    (SELECT TOP 1 cpk_line_13_wei13_VALUE 
+     FROM Line1013 
+     ORDER BY cpk_line_13_wei13_TIMESTAMP DESC) AS LastValue;
+
     ";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -475,8 +504,8 @@ namespace cpk.Repositories
             {
                 line1014ForGraph = new Line1014
                 {
-                    CpkLine14We14Value = row["cpk_line_14_we14_VALUE"] != DBNull.Value ? Convert.ToSingle(row["cpk_line_14_we14_VALUE"]) : (float?)null,
-                    CpkLine14We14Timestamp = row["cpk_line_14_we14_TIMESTAMP"] != DBNull.Value ? Convert.ToDateTime(row["cpk_line_14_we14_TIMESTAMP"]) : (DateTime?)null
+                    CpkLine14We14Value = row["cpk_lin14_we14_VALUE"] != DBNull.Value ? Convert.ToSingle(row["cpk_lin14_we14_VALUE"]) : (float?)null,
+                    CpkLine14We14Timestamp = row["cpk_lin14_we14_TIMESTAMP"] != DBNull.Value ? Convert.ToDateTime(row["cpk_lin14_we14_TIMESTAMP"]) : (DateTime?)null
                 };
                 lines1014ForGraph.Add(line1014ForGraph);
             }
@@ -486,7 +515,7 @@ namespace cpk.Repositories
         public DataTable GetLine1014ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 30 cpk_line_14_we14_VALUE, cpk_line_14_we14_TIMESTAMP FROM Line1014 ORDER BY cpk_line_14_we14_TIMESTAMP ASC;";
+            var query = "SELECT TOP 20 cpk_lin14_we14_VALUE, cpk_lin14_we14_TIMESTAMP FROM Line1014 ORDER BY cpk_lin14_we14_TIMESTAMP ASC;";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -517,9 +546,14 @@ namespace cpk.Repositories
         public (float? avgValue, float? lastValue) GetLine1014DetailsFromDb()
         {
             var query = @"
-     SELECT 
-    (SELECT AVG(cpk_line_14_we14_VALUE) FROM Line1014) AS AvgValue,
-    (SELECT TOP 1 cpk_line_14_we14_VALUE FROM Line1014 ORDER BY cpk_line_14_we14_TIMESTAMP DESC) AS LastValue;
+      SELECT 
+    (SELECT AVG(cpk_lin14_we14_VALUE) 
+     FROM (SELECT TOP 20 cpk_lin14_we14_VALUE 
+           FROM Line1014 
+           ORDER BY cpk_lin14_we14_TIMESTAMP DESC) AS Last20Rows) AS AvgValue,
+    (SELECT TOP 1 cpk_lin14_we14_VALUE 
+     FROM Line1014 
+     ORDER BY cpk_lin14_we14_TIMESTAMP DESC) AS LastValue;
     ";
 
             using (SqlConnection connection = new SqlConnection(connectionString))

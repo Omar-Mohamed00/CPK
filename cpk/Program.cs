@@ -14,18 +14,18 @@ var ConnectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<Cpk25Context>(options =>
     options.UseSqlServer(ConnectionString));
-builder.Services.AddSignalR();
-
 // DI
 builder.Services.AddSingleton<DataHub>();
 builder.Services.AddSignalR();
 
+// Register all table dependencies
 builder.Services.AddSingleton<SubscribeLine1003TableDependency>();
 builder.Services.AddSingleton<SubscribeLine1010TableDependency>();
 builder.Services.AddSingleton<SubscribeLine10113TableDependency>();
 builder.Services.AddSingleton<SubscribeLine1011TableDependency>();
 builder.Services.AddSingleton<SubscribeLine1013TableDependency>();
 builder.Services.AddSingleton<SubscribeLine1014TableDependency>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,27 +38,37 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 app.MapHub<DataHub>("/dataHub");
 // Log that Table Dependency services are being started
 Console.WriteLine(" Starting Table Dependency Subscriptions...");
 
-var tableDependencyServices = app.Services.GetRequiredService<IEnumerable<ISubscribeTableDependencies>>();
-foreach (var service in tableDependencyServices)
+using (var scope = app.Services.CreateScope())
 {
-    Console.WriteLine($"Subscribing to table dependency: {service.GetType().Name}");
-    service.SubscribeTableDependency(ConnectionString);
+    var services = scope.ServiceProvider.GetRequiredService<IEnumerable<ISubscribeTableDependencies>>();
+
+    foreach (var service in services)
+    {
+        try
+        {
+            Console.WriteLine($"Subscribing to table dependency: {service.GetType().Name}");
+            service.SubscribeTableDependency(ConnectionString);
+            Console.WriteLine($"Successfully subscribed: {service.GetType().Name}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error subscribing to {service.GetType().Name}: {ex.Message}");
+        }
+    }
 }
 
-Console.WriteLine(" All Table Dependency Subscriptions Started Successfully!");
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// Register table dependencies with middleware
 app.UseSqlTableDependency<SubscribeLine1003TableDependency>(ConnectionString);
 app.UseSqlTableDependency<SubscribeLine1010TableDependency>(ConnectionString);
 app.UseSqlTableDependency<SubscribeLine10113TableDependency>(ConnectionString);

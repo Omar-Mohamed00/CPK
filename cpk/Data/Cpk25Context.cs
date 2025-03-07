@@ -121,12 +121,10 @@ public partial class Cpk25Context : DbContext
             entity.ToTable("line1014");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CpkLine14We14Numericid).HasColumnName("cpk_line_14_we14_NUMERICID");
-            entity.Property(e => e.CpkLine14We14Quality).HasColumnName("cpk_line_14_we14_QUALITY");
             entity.Property(e => e.CpkLine14We14Timestamp)
                 .HasColumnType("datetime")
-                .HasColumnName("cpk_line_14_we14_TIMESTAMP");
-            entity.Property(e => e.CpkLine14We14Value).HasColumnName("cpk_line_14_we14_VALUE");
+                .HasColumnName("cpk_lin14_we14_TIMESTAMP");
+            entity.Property(e => e.CpkLine14We14Value).HasColumnName("cpk_lin14_we14_VALUE");
         });
 
         OnModelCreatingPartial(modelBuilder);
