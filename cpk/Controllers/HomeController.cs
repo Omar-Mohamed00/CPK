@@ -33,7 +33,7 @@ namespace cpk.Controllers
 
                 double? line1003Avg = await _context.Line1003s
                     .OrderByDescending(entry => entry.CpkLin3We3Timestamp)
-                    .Take(20)
+                    .Take(40)
                     .Select(entry => (double?)entry.CpkLin3We3Value)
                     .AverageAsync();
                 ViewBag.Line1003Weight = line1003Data.FirstOrDefault()?.value;
@@ -56,7 +56,7 @@ namespace cpk.Controllers
 
                 double? line1010Avg = await _context.Line1010s
                     .OrderByDescending(entry => entry.CpkLin10We10Timestamp)
-                    .Take(20)
+                    .Take(40)
                     .Select(entry => (double?)entry.CpkLin10We10Value)
                     .AverageAsync();
                 ViewBag.Line1010Weight = line1010Data.FirstOrDefault()?.value;
@@ -79,7 +79,7 @@ namespace cpk.Controllers
 
                 double? line1011Avg = await _context.Line1011s
                     .OrderByDescending(entry => entry.CpkLin11We11Timestamp)
-                    .Take(20)
+                    .Take(40)
                     .Select(entry => (double?)entry.CpkLin11We11Value)
                     .AverageAsync();
                 ViewBag.Line1011Weight = line1011Data.FirstOrDefault()?.value;
@@ -103,7 +103,7 @@ namespace cpk.Controllers
 
                 double? line1013Avg = await _context.Line1013s
                     .OrderByDescending(entry => entry.CpkLine13Wei13Timestamp)
-                    .Take(20)
+                    .Take(40)
                     .Select(entry => (double?)entry.CpkLine13Wei13Value)
                     .AverageAsync();
                 ViewBag.Line1013Weight = line1013Data.FirstOrDefault()?.value;
@@ -126,7 +126,7 @@ namespace cpk.Controllers
 
                 double? line10113Avg = await _context.Line10113s
                     .OrderByDescending(entry => entry.CpkLin3We3Timestamp)
-                    .Take(20)
+                    .Take(40)
                     .Select(entry => (double?)entry.CpkLin3We3Value)
                     .AverageAsync();
 
@@ -150,7 +150,7 @@ namespace cpk.Controllers
 
                 double? line1014Avg = await _context.Line1014s
                    .OrderByDescending(entry => entry.CpkLine14We14Timestamp)
-                   .Take(20)
+                   .Take(40)
                    .Select(entry => (double?)entry.CpkLine14We14Value)
                    .AverageAsync();
 
