@@ -107,9 +107,9 @@ function BindDataToGraph(chartId, data, label, timestampKey, valueKey) {
 // Helper functions for chart datasets and options
 function createDatasets(label) {
     return [
-        { label: label, data: [], backgroundColor: 'rgba(54, 162, 235, 0.2)', pointRadius: 0, borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 1, fill: false, tension: 0.1 },
-        { label: "LTL", data: [], borderColor: "red", borderWidth: 1, pointRadius: 0, borderDash: [1, 1], fill: false },
-        { label: "UTL", data: [], borderColor: "green", borderWidth: 1, pointRadius: 0, borderDash: [1, 1], fill: false }
+        { label: label, data: [], backgroundColor: 'rgba(54, 162, 235, 0.2)', pointRadius: 0, borderColor: 'rgba(54, 162, 235, 1)', borderWidth: 1.9, fill: false, tension: 0.1 },
+        { label: "LTL", data: [], borderColor: "red", borderWidth: 1.9, pointRadius: 0, borderDash: [1, 1], fill: false },
+        { label: "UTL", data: [], borderColor: "green", borderWidth: 1.9, pointRadius: 0, borderDash: [1, 1], fill: false }
     ];
 }
 
@@ -134,10 +134,17 @@ function saveLimits(chartId) {
     BindDataToGraph(chartId, [], "Updated Values", "", "");
     location.reload();
 }
+function saveXValue(chartId) {
+    let xValue = parseFloat(document.getElementById(`xInput_${chartId}`).value) || 0;
+    localStorage.setItem(`X_${chartId}`, xValue);
+    calculateCpk(chartId);
+}
 
 function calculateCpk(chartId) {
     let ltl = parseFloat(document.getElementById(`ltlInput_${chartId}`).value) || 0;
     let utl = parseFloat(document.getElementById(`rtlInput_${chartId}`).value) || 0;
+
+    let xValue = parseFloat(localStorage.getItem(`X_${chartId}`)) || 1; // Default to 1 if not set
 
     // Extract the line number from the chartId (e.g., "canvasLine1003" -> "1003")
     let lineNumber = chartId.replace("canvasLine", "");
@@ -150,7 +157,7 @@ function calculateCpk(chartId) {
 
     let avg = parseFloat(avgElement.textContent) || 0;
 
-    let x = (utl - ltl) / 6;
+    let x = (utl - ltl) / xValue;
     let cpk = (utl - avg) / (6 * x);
 
     cpk = Math.max(0.5, Math.min(3, cpk)); // Ensure Cpk is within range [0.5, 3]
@@ -174,7 +181,6 @@ allChartIds.forEach(chartId => {
     if (ltlInput) {
         ltlInput.addEventListener("input", () => calculateCpk(chartId));
     }
-
     if (rtlInput) {
         rtlInput.addEventListener("input", () => calculateCpk(chartId));
     }
@@ -190,9 +196,11 @@ window.onload = function () {
     allChartIds.forEach(chartId => {
         let ltlInput = document.getElementById(`ltlInput_${chartId}`);
         let rtlInput = document.getElementById(`rtlInput_${chartId}`);
+        let xInput = document.getElementById(`xInput_${chartId}`);
 
         if (ltlInput) ltlInput.value = localStorage.getItem(`LTL_${chartId}`) || 0;
         if (rtlInput) rtlInput.value = localStorage.getItem(`RTL_${chartId}`) || 0;
+        if (xInput) xInput.value = localStorage.getItem(`X_${chartId}`) || 1;
 
         // Calculate initial CPK values
         calculateCpk(chartId);
