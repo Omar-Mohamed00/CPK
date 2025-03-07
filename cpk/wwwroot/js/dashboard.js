@@ -23,7 +23,7 @@ connection.on("ReceivedLine1014", (data) => updateWeightField(data, "line1014Wei
 const updateAverageField = (avgValue, elementId) => {
     console.log(`Received Average Value for ${elementId}:`, avgValue);
     let element = document.getElementById(elementId);
-    if (element) element.textContent = avgValue;
+    if (element) element.textContent = parseFloat(avgValue).toFixed(2);
 };
 
 connection.on("ReceivedAvgValue", (avgValue) => updateAverageField(avgValue, "line1003Average"));
@@ -51,12 +51,12 @@ function InvokeSales() {
 }
 
 // Bind individual graph functions
-function BindLine1003ToGraph(data) { BindDataToGraph("canvasLine1003", data, "Values Over Time", "cpkLin3We3Timestamp", "cpkLin3We3Value"); }
-function BindLine1010ToGraph(data) { BindDataToGraph("canvasLine1010", data, "Values Over Time", "cpkLin10We10Timestamp", "cpkLin10We10Value"); }
-function BindLine1011ToGraph(data) { BindDataToGraph("canvasLine1011", data, "Values Over Time", "cpkLin11We11Timestamp", "cpkLin11We11Value"); }
-function BindLine10113ToGraph(data) { BindDataToGraph("canvasLine10113", data, "Values Over Time", "cpkLin3We3Timestamp", "cpkLin3We3Value"); }
-function BindLine1013ToGraph(data) { BindDataToGraph("canvasLine1013", data, "Values Over Time", "cpkLine13Wei13Timestamp", "cpkLine13Wei13Value"); }
-function BindLine1014ToGraph(data) { BindDataToGraph("canvasLine1014", data, "Values Over Time", "cpkLine14We14Timestamp", "cpkLine14We14Value"); }
+function BindLine1003ToGraph(data) { BindDataToGraph("canvasLine1003", data, "pipe weight", "cpkLin3We3Timestamp", "cpkLin3We3Value"); }
+function BindLine1010ToGraph(data) { BindDataToGraph("canvasLine1010", data, "pipe weight", "cpkLin10We10Timestamp", "cpkLin10We10Value"); }
+function BindLine1011ToGraph(data) { BindDataToGraph("canvasLine1011", data, "pipe weight", "cpkLin11We11Timestamp", "cpkLin11We11Value"); }
+function BindLine10113ToGraph(data) { BindDataToGraph("canvasLine10113",data,"pipe weight", "cpkLin3We3Timestamp", "cpkLin3We3Value"); }
+function BindLine1013ToGraph(data) { BindDataToGraph("canvasLine1013", data, "pipe weight", "cpkLine13Wei13Timestamp", "cpkLine13Wei13Value"); }
+function BindLine1014ToGraph(data) { BindDataToGraph("canvasLine1014", data, "pipe weight", "cpkLine14We14Timestamp", "cpkLine14We14Value"); }
 
 // SignalR real-time updates for graphs
 connection.on("ReceivedLine1003ForGraph", BindLine1003ToGraph);
