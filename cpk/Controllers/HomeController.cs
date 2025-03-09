@@ -23,7 +23,7 @@ namespace cpk.Controllers
             try
             {
                 var line1003Data = await _context.Line1003s
-              .OrderByDescending(entry => entry.CpkLin3We3Timestamp)
+              .OrderBy(l => l.CpkLin3We3Timestamp)
               .Take(1)
               .Select(entry => new {
                   timestamp = (DateTime?)entry.CpkLin3We3Timestamp,
@@ -32,7 +32,7 @@ namespace cpk.Controllers
               .ToListAsync();
 
                 double? line1003Avg = await _context.Line1003s
-                    .OrderByDescending(entry => entry.CpkLin3We3Timestamp)
+                    .OrderBy(entry => entry.CpkLin3We3Timestamp)
                     .Take(40)
                     .Select(entry => (double?)entry.CpkLin3We3Value)
                     .AverageAsync();
@@ -46,7 +46,7 @@ namespace cpk.Controllers
             try
             {
                 var line1010Data = await _context.Line1010s
-                .OrderByDescending(entry => entry.CpkLin10We10Timestamp)
+                .OrderBy(entry => entry.CpkLin10We10Timestamp)
                 .Take(1)
                 .Select(entry => new {
                     timestamp = (DateTime?)entry.CpkLin10We10Timestamp,
@@ -55,7 +55,7 @@ namespace cpk.Controllers
                 .ToListAsync();
 
                 double? line1010Avg = await _context.Line1010s
-                    .OrderByDescending(entry => entry.CpkLin10We10Timestamp)
+                    .OrderBy(entry => entry.CpkLin10We10Timestamp)
                     .Take(40)
                     .Select(entry => (double?)entry.CpkLin10We10Value)
                     .AverageAsync();
@@ -69,7 +69,7 @@ namespace cpk.Controllers
             try
             {
                 var line1011Data = await _context.Line1011s
-                .OrderByDescending(entry => entry.CpkLin11We11Timestamp)
+                .OrderBy(entry => entry.CpkLin11We11Timestamp)
                 .Take(1)
                 .Select(entry => new {
                     timestamp = (DateTime?)entry.CpkLin11We11Timestamp,
@@ -78,7 +78,7 @@ namespace cpk.Controllers
                 .ToListAsync();
 
                 double? line1011Avg = await _context.Line1011s
-                    .OrderByDescending(entry => entry.CpkLin11We11Timestamp)
+                    .OrderBy(entry => entry.CpkLin11We11Timestamp)
                     .Take(40)
                     .Select(entry => (double?)entry.CpkLin11We11Value)
                     .AverageAsync();
@@ -93,7 +93,7 @@ namespace cpk.Controllers
             {
 
                 var line1013Data = await _context.Line1013s
-                    .OrderByDescending(entry => entry.CpkLine13Wei13Timestamp)
+                    .OrderBy(entry => entry.CpkLine13Wei13Timestamp)
                     .Take(1)
                     .Select(entry => new {
                         timestamp = (DateTime?)entry.CpkLine13Wei13Timestamp,
@@ -102,7 +102,7 @@ namespace cpk.Controllers
                     .ToListAsync();
 
                 double? line1013Avg = await _context.Line1013s
-                    .OrderByDescending(entry => entry.CpkLine13Wei13Timestamp)
+                    .OrderBy(entry => entry.CpkLine13Wei13Timestamp)
                     .Take(40)
                     .Select(entry => (double?)entry.CpkLine13Wei13Value)
                     .AverageAsync();
@@ -116,7 +116,7 @@ namespace cpk.Controllers
             try
             {
                 var line10113Data = await _context.Line10113s
-                    .OrderByDescending(entry => entry.CpkLin3We3Timestamp)
+                    .OrderBy(entry => entry.CpkLin3We3Timestamp)
                     .Take(1)
                     .Select(entry => new {
                         timestamp = (DateTime?)entry.CpkLin3We3Timestamp,
@@ -125,7 +125,7 @@ namespace cpk.Controllers
                     .ToListAsync();
 
                 double? line10113Avg = await _context.Line10113s
-                    .OrderByDescending(entry => entry.CpkLin3We3Timestamp)
+                    .OrderBy(entry => entry.CpkLin3We3Timestamp)
                     .Take(40)
                     .Select(entry => (double?)entry.CpkLin3We3Value)
                     .AverageAsync();
@@ -140,7 +140,7 @@ namespace cpk.Controllers
             try
             {
                 var line1014Data = await _context.Line1014s
-               .OrderByDescending(entry => entry.CpkLine14We14Timestamp)
+               .OrderBy(entry => entry.CpkLine14We14Timestamp)
                .Take(1)
                .Select(entry => new {
                    timestamp = (DateTime?)entry.CpkLine14We14Timestamp,
@@ -149,7 +149,7 @@ namespace cpk.Controllers
                .ToListAsync();
 
                 double? line1014Avg = await _context.Line1014s
-                   .OrderByDescending(entry => entry.CpkLine14We14Timestamp)
+                   .OrderBy(entry => entry.CpkLine14We14Timestamp)
                    .Take(40)
                    .Select(entry => (double?)entry.CpkLine14We14Value)
                    .AverageAsync();

@@ -30,7 +30,7 @@ namespace cpk.Repositories
                 lines1003ForGraph.Add(line1003ForGraph);
             }
 
-            return lines1003ForGraph;
+            return lines1003ForGraph.OrderBy(l => l.CpkLin3We3Timestamp).ToList();
         }
         public (float? avgValue, float? lastValue) GetLine1003DetailsFromDb()
         {
@@ -80,7 +80,7 @@ namespace cpk.Repositories
         private DataTable GetLine1003ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 40 cpk_lin3_we3_VALUE, cpk_lin3_we3_Timestamp FROM Line1003 ORDER BY cpk_lin3_we3_Timestamp ASC;\r\n";
+            var query = "SELECT TOP 40 cpk_lin3_we3_VALUE, cpk_lin3_we3_Timestamp FROM Line1003 ORDER BY cpk_lin3_we3_Timestamp Desc;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -126,12 +126,13 @@ namespace cpk.Repositories
                 lines1010ForGraph.Add(line1010ForGraph);
             }
 
-            return lines1010ForGraph;
+            return lines1010ForGraph.OrderBy(l => l.CpkLin10We10Timestamp).ToList();
+
         }
         private DataTable GetLine1010ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 40 cpk_lin10_we10_VALUE, cpk_lin10_we10_Timestamp FROM Line1010 ORDER BY cpk_lin10_we10_Timestamp ASC;\r\n";
+            var query = "SELECT TOP 40 cpk_lin10_we10_VALUE, cpk_lin10_we10_Timestamp FROM Line1010 ORDER BY cpk_lin10_we10_Timestamp Desc;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -221,13 +222,13 @@ namespace cpk.Repositories
                 };
                 lines1011ForGraph.Add(line1011ForGraph);
             }
+            return lines1011ForGraph.OrderBy(l => l.CpkLin11We11Timestamp).ToList();
 
-            return lines1011ForGraph;
         }
         private DataTable GetLine1011ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 40 cpk_lin11_we11_VALUE, cpk_lin11_we11_Timestamp FROM Line1011 ORDER BY cpk_lin11_we11_Timestamp ASC;\r\n";
+            var query = "SELECT TOP 40 cpk_lin11_we11_VALUE, cpk_lin11_we11_Timestamp FROM Line1011 ORDER BY cpk_lin11_we11_Timestamp Desc;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -317,13 +318,13 @@ namespace cpk.Repositories
                 };
                 lines10113ForGraph.Add(line10113ForGraph);
             }
+            return lines10113ForGraph.OrderBy(l => l.CpkLin3We3Timestamp).ToList();
 
-            return lines10113ForGraph;
         }
         public DataTable GetLine10113ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 40 cpk_lin3_we3_VALUE, cpk_lin3_we3_TIMESTAMP FROM Line10113 ORDER BY cpk_lin3_we3_TIMESTAMP ASC;\r\n";
+            var query = "SELECT TOP 40 cpk_lin3_we3_VALUE, cpk_lin3_we3_TIMESTAMP FROM Line10113 ORDER BY cpk_lin3_we3_TIMESTAMP Desc;\r\n";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -413,13 +414,13 @@ namespace cpk.Repositories
                 };
                 lines1013ForGraph.Add(line1013ForGraph);
             }
+            return lines1013ForGraph.OrderBy(l => l.CpkLine13Wei13Timestamp).ToList();
 
-            return lines1013ForGraph;
         }
         public DataTable GetLine1013ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 40 cpk_line_13_wei13_VALUE, cpk_line_13_wei13_TIMESTAMP FROM Line1013 ORDER BY cpk_line_13_wei13_TIMESTAMP ASC;";
+            var query = "SELECT TOP 40 cpk_line_13_wei13_VALUE, cpk_line_13_wei13_TIMESTAMP FROM Line1013 ORDER BY cpk_line_13_wei13_TIMESTAMP Desc;";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -509,13 +510,13 @@ namespace cpk.Repositories
                 };
                 lines1014ForGraph.Add(line1014ForGraph);
             }
+            return lines1014ForGraph.OrderBy(l => l.CpkLine14We14Timestamp).ToList();
 
-            return lines1014ForGraph;
         }
         public DataTable GetLine1014ForGraphFromDb()
         {
 
-            var query = "SELECT TOP 40 cpk_lin14_we14_VALUE, cpk_lin14_we14_TIMESTAMP FROM Line1014 ORDER BY cpk_lin14_we14_TIMESTAMP ASC;";
+            var query = "SELECT TOP 40 cpk_lin14_we14_VALUE, cpk_lin14_we14_TIMESTAMP FROM Line1014 ORDER BY cpk_lin14_we14_TIMESTAMP Desc;";
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
